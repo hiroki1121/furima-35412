@@ -1,15 +1,15 @@
 ## usersテーブル
 
-|Column           |Type     |Options                    |
-|-----------------|---------|---------------------------|
-| email           | string  | null: false, unique: true |
-| password        | string  | null: false               |
-| nickname        | string  | null: false               |
-| last_name       | string  | null: false               |
-| first_name      | string  | null: false               |
-| last_name_ruby  | string  | null: false               |
-| first_name_ruby | string  | null: false               |
-| birthday        | integer | null: false               |
+|Column              |Type     |Options                    |
+|--------------------|---------|---------------------------|
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| nickname           | string  | null: false               |
+| last_name          | string  | null: false               |
+| first_name         | string  | null: false               |
+| last_name_ruby     | string  | null: false               |
+| first_name_ruby    | string  | null: false               |
+| birthday           | date    | null: false               |
 
 
 ### Association
@@ -20,16 +20,15 @@
 
 |Column          |Type        |Options                         |
 |----------------|------------|--------------------------------|
-| image          | text       | null: false                    |
 | product_name   | string     | null: false                    |
 | description    | text       | null: false                    |
-| category       | string     | null: false                    |
-| product_status | string     | null: false                    |
-| shipping       | string     | null: false                    |
-| delivery_area  | string     | null: false                    |
-| delivery_days  | string     | null: false                    |
+| category       | integer    | null: false                    |
+| product_status | integer    | null: false                    |
+| shipping       | integer    | null: false                    |
+| delivery_area  | integer    | null: false                    |
+| delivery_day   | integer    | null: false                    |
 | price          | integer    | null: false                    |
-| user           | references | null: false, foreign_key: true |
+| order          | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -42,6 +41,18 @@
 | credit_num        | integer    | null: false                    |
 | credit_expiration | integer    | null: false                    |
 | security_code     | integer    | null: false                    |
+| user              | references | null: false, foreign_key: true |
+| item              | references | null: false, foreign_key: true |
+
+### Association
+- belongs_to :user
+- belongs_to :item
+- has_one :delivery
+
+## deliverysテーブル
+
+|Column             |Type        |Options                         |
+|-------------------|------------|--------------------------------|
 | post_code         | integer    | null: false                    |
 | prefecture        | string     | null: false                    |
 | municipality      | string     | null: false                    |
@@ -51,5 +62,4 @@
 | user              | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :user
-- belongs_to :item
+- belongs_to :order
