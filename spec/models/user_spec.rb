@@ -20,12 +20,12 @@ RSpec.describe User, type: :model do
       another_user = FactoryBot.build(:user)
       another_user.email = @user.email
       another_user.valid?
-      expect(another_user.errors.full_messages).to include("Password is invalid")
+      expect(another_user.errors.full_messages).to include('Password is invalid')
     end
     it 'メールアドレスは、@を含む必要があること' do
       @user.email = 'sample'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Email is invalid")
+      expect(@user.errors.full_messages).to include('Email is invalid')
     end
     it 'パスワードが必須であること' do
       @user.password = ''
@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
       @user.password = 'a1234'
       @user.password_confirmation = 'a1234'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
     it 'パスワードは、半角英数字混合での入力が必須であること（半角英数字が混合されていれば、登録が可能なこと）' do
       @user.password = 'a12345'
@@ -56,7 +56,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
   end
-  
+
   describe '新規登録/本人情報確認' do
     it 'ユーザー本名は、名字と名前がそれぞれ必須であること' do
       @user.last_name = ''
@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
       @user.last_name = 'yamada'
       @user.first_name = 'tarou'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name is invalid", "First name is invalid")
+      expect(@user.errors.full_messages).to include('Last name is invalid', 'First name is invalid')
     end
     it 'ユーザー本名のフリガナは、名字と名前がそれぞれ必須であること' do
       @user.last_name_ruby = ''
@@ -80,7 +80,7 @@ RSpec.describe User, type: :model do
       @user.last_name_ruby = 'やまだ'
       @user.first_name_ruby = 'たろう'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name ruby is invalid", "First name ruby is invalid")
+      expect(@user.errors.full_messages).to include('Last name ruby is invalid', 'First name ruby is invalid')
     end
     it '生年月日が必須であること' do
       @user.birthday = ''
