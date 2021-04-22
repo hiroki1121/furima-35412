@@ -9,12 +9,14 @@ class User < ApplicationRecord
   VALID_NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   VALID_NAME_RUBY_REGEX = /\A[ァ-ヶ]+\z/.freeze
 
-  validates :email, uniqueness: { case_sensitive: true }, format: { with: VALID_EAMIL_REGEX }
-  validates :password, format: { with: VALID_PASSWORD_REGEX }
-  validates :nickname, presence: true
-  validates :birthday, presence: true
-  validates :last_name, presence: true, format: { with: VALID_NAME_REGEX }
-  validates :first_name, presence: true, format: { with: VALID_NAME_REGEX }
-  validates :last_name_ruby, presence: true, format: { with: VALID_NAME_RUBY_REGEX }
-  validates :first_name_ruby, presence: true, format: { with: VALID_NAME_RUBY_REGEX }
+  with_options presence: true do
+    validates :email, uniqueness: { case_sensitive: true }, format: { with: VALID_EAMIL_REGEX }
+    validates :password, format: { with: VALID_PASSWORD_REGEX }
+    validates :nickname
+    validates :birthday
+    validates :last_name, format: { with: VALID_NAME_REGEX }
+    validates :first_name, format: { with: VALID_NAME_REGEX }
+    validates :last_name_ruby, format: { with: VALID_NAME_RUBY_REGEX }
+    validates :first_name_ruby, format: { with: VALID_NAME_RUBY_REGEX }
+  end
 end
