@@ -19,7 +19,8 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(user_id)
+    @user = User.find(params[:id])
+    @item = Item.find(@user.id)
   end
 
   private
