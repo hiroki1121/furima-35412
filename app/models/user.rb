@@ -19,4 +19,6 @@ class User < ApplicationRecord
     validates :last_name_ruby, format: { with: VALID_NAME_RUBY_REGEX }
     validates :first_name_ruby, format: { with: VALID_NAME_RUBY_REGEX }
   end
+
+  has_many :items
 end
