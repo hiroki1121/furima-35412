@@ -36,20 +36,40 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Product status can't be blank")
       end
+      it '商品の状態のidが1では出品できないこと' do
+        @item.product_status_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Product status must be other than 1')
+      end
       it '配送料の負担についての情報が必須であること' do
         @item.shipping_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping can't be blank")
+      end
+      it '配送料の負担のidが1では出品できないこと' do
+        @item.shipping_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Shipping must be other than 1')
       end
       it '発送元の地域についての情報が必須であること' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it '発送元の地域のidが1では出品できないこと' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
+      end
       it '発送までの日数についての情報が必須であること' do
         @item.delivery_day_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery day can't be blank")
+      end
+      it '発送までの日数のidが1では出品できないこと' do
+        @item.delivery_day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Delivery day must be other than 1')
       end
       it '販売価格についての情報が必須であること' do
         @item.price = ''

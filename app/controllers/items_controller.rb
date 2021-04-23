@@ -1,14 +1,12 @@
 class ItemsController < ApplicationController
   def index
-    @item = Item.create
-    @items = Item.all
+    # @item = Item.create
+    # @items = Item.all
   end
 
   def new
     @item = Item.new
-    if user_signed_in?
-      render new_item_path
-    else
+    unless user_signed_in?
       redirect_to root_path
     end
   end
