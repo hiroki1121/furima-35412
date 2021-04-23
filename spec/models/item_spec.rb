@@ -31,6 +31,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it 'カテゴリーのidが1では出品できないこと' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Category must be other than 1')
+      end
       it '商品の状態についての情報が必須であること' do
         @item.product_status_id = ''
         @item.valid?
@@ -87,7 +92,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
       it '販売価格は半角数字のみ保存可能であること(ひらがなの場合でテスト)' do
-        @item.price = 'テスト'
+        @item.price = 'てすと'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
@@ -103,6 +108,11 @@ RSpec.describe Item, type: :model do
       end
       it '販売価格は半角数字のみ保存可能であること(全角数字の場合でテスト)' do
         @item.price = '１１１'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it '販売価格は半角数字のみ保存可能であること(半角英数字混合の場合でテスト)' do
+        @item.price = 'ab12'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end

@@ -8,11 +8,9 @@ function price (){
 
       const addTaxPrice = document.getElementById("add-tax-price");
       addTaxPrice.innerHTML = tax.toLocaleString('ja-JP');
-      var taxPrice = addTaxPrice.innerHTML;
 
       const profit = document.getElementById("profit");
       profit.innerHTML = profitValue.toLocaleString('ja-JP');
-      profitValueResult = profit.innerHTML
 
     });
 }
