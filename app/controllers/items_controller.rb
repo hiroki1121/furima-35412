@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_item, only: [:show, :edit, :update, :restrictions_on_edit]
   before_action :restrictions_on_edit, only: [:edit]
 
   def index
@@ -20,15 +21,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(items_params)
       redirect_to item_path
     else
@@ -46,10 +44,11 @@ class ItemsController < ApplicationController
     ).merge(user_id: current_user.id)
   end
 
-  def restrictions_on_edit
+  def set_item
     @item = Item.find(params[:id])
-    @user = User.find(@item.id)
-    redirect_to new_user_registration_path unless user_signed_in?
-    redirect_to root_path if user_signed_in? && current_user.id != @user.id
+  end
+
+  def restrictions_on_edit
+    redirect_to root_path if current_user.id != @item.user.id
   end
 end
