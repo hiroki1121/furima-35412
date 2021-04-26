@@ -1,29 +1,28 @@
 class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
-    @order = OrderDelivery.new
+    @order_delivery = OrderDelivery.new
   end
 
   def new
-    @order = OrderDelivery.new(form_params)
   end
-  
+
   def create
-    @order = OrderDelivery.new(form_params)
-    if @order.valid?
+    @order_delivery = OrderDelivery.new(form_params)
+    if @order_delivery.valid?
       pay_item
-      @order.save
+      @order_delivery.save
       redirect_to root_path
     else
       @item = Item.find(params[:item_id])
       render :index
     end
   end
-  
+
   private
-  
+
   def form_params
-    params.permit(
+    params.require(:order_delivery).permit(
       :post_code,
       :prefecture_id,
       :municipality,
