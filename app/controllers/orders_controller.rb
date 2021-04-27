@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_item, only:[:index, :create]
+  before_action :set_item, only: [:index, :create]
+  before_action :restrictions_on_url
 
   def index
     @order_delivery = OrderDelivery.new
@@ -23,6 +24,10 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def restrictions_on_url
+    redirect_to root_path if current_user.id == @item.user.id
   end
 
   def form_params
