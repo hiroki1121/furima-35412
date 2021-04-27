@@ -29,7 +29,7 @@ RSpec.describe OrderDelivery, type: :model do
         expect(@order_delivery.errors.full_messages).to include("Post code can't be blank")
       end
       it '配送先の情報として、郵便番号が正しい記述になっていること' do
-        @order_delivery.post_code = 8_100_000
+        @order_delivery.post_code = '8100000'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include('Post code is invalid')
       end
@@ -54,7 +54,7 @@ RSpec.describe OrderDelivery, type: :model do
         expect(@order_delivery.errors.full_messages).to include("Phone num can't be blank")
       end
       it '電話番号は11桁以内の数値のみ保存可能なこと（12桁）' do
-        @order_delivery.phone_num = 123_456_789_123
+        @order_delivery.phone_num = '123456789123'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include('Phone num is invalid')
       end
