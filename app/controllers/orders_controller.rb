@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
   end
 
   def restrictions_on_url
-    redirect_to root_path if current_user.id == @item.user.id
+    redirect_to root_path if @item.order.present? || current_user.id == @item.user.id
   end
 
   def form_params
