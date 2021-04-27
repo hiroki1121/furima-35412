@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe OrderDelivery, type: :model do
   before do
-    @order_delivery = FactoryBot.build(:order_delivery)
-    @order_delivery.user_id = 1
-    @order_delivery.item_id = 4
+    item = FactoryBot.create(:item)
+    user = FactoryBot.create(:user)
+    sleep 0.1
+    @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id, item_id: item.id)
   end
-  describe '商品出品機能' do
+  describe '商品購入機能' do
     context '商品を購入でききる' do
       it '必要な情報を適切に入力すると、商品の購入ができる' do
         expect(@order_delivery).to be_valid
