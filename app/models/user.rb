@@ -11,7 +11,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   VALID_NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   VALID_NAME_RUBY_REGEX = /\A[ァ-ヶ]+\z/.freeze
-
+ 
   with_options presence: true do
     validates :email, uniqueness: { case_sensitive: true }, format: { with: VALID_EAMIL_REGEX }
     validates :password, format: { with: VALID_PASSWORD_REGEX }
