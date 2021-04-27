@@ -20,8 +20,6 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
       end
-      it '正しいクレジットカードの情報で無いときは決済できないこと' do
-      end
       it '配送先の情報として、郵便番号が必須であること' do
         @order_delivery.post_code = ''
         @order_delivery.valid?
@@ -71,6 +69,16 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.phone_num = '１２３４５６７８９１２３'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include('Phone num is invalid')
+      end
+      it 'user_idが存在していることが必須' do
+        @order_delivery.user_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが存在していることが必須' do
+        @order_delivery.item_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
