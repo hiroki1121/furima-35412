@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :restrictions_on_url, only: [:edit, :update, :destroy]
+  before_action :sold_item_restrictions, only: [:edit, :update]
 
   def index
     @items = Item.order('created_at DESC')
@@ -54,5 +55,9 @@ class ItemsController < ApplicationController
 
   def restrictions_on_url
     redirect_to root_path if current_user.id != @item.user.id
+  end
+
+  def sold_item_restrictions
+    redirect_to root_path if @item.order.present?
   end
 end
