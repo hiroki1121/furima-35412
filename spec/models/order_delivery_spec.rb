@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe OrderDelivery, type: :model do
   before do
     @order_delivery = FactoryBot.build(:order_delivery)
+    @order_delivery.user_id = 1
+    @order_delivery.item_id = 4
   end
   describe '商品出品機能' do
     context '商品を購入でききる' do
