@@ -7,7 +7,7 @@ class Item < ApplicationRecord
     validates :image
     validates :product_name
     validates :description
-    with_options numericality: { other_than: 1 } do
+    with_options numericality: { other_than: 1, message: 'は---以外を選択してください' } do
       validates :category_id
       validates :product_status_id
       validates :shipping_id
